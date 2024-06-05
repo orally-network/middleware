@@ -1,0 +1,2 @@
+[workspace]
+members = ["src/middleware", "src/middleware_instance_example"]

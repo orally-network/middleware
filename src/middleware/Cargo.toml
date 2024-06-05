@@ -1,0 +1,28 @@
+[package]
+name = "middleware"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1.0.79"
+candid = "0.9"
+ic-utils = { package = "canistergeek_ic_rust", version = "0.4.2" }
+ciborium = "0.2.1"
+ic-cdk = "0.11"
+ic-stable-structures = "0.6.1"
+serde = { version = "1.0.194", features = ["derive"] }
+thiserror = "1.0.56"
+ic-web3-rs = { git = "https://github.com/orally-network/ic-web3-rs", version = "0.1.3" }
+# ic-web3-rs = { package = "ic-web3", git = "https://github.com/rocklabs-io/ic-web3.git", version = "0.1.7" }
+
+hex = "0.4.3"
+siwe = "0.6.1"
+time = "0.3.36"
+paginate = "1.1.11"
+num-bigint = "0.4.5"
+ic-cdk-timers = "0.4.0"
+tokio = { version = "1.35.1", features = ["sync"] }

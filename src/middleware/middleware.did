@@ -1,0 +1,157 @@
+type CanisterLogFeature = variant {
+  filterMessageByContains;
+  filterMessageByRegex;
+};
+type CanisterLogMessages = record {
+  data : vec LogMessageData;
+  lastAnalyzedMessageTimeNanos : opt nat64;
+};
+type CanisterLogMessagesInfo = record {
+  features : vec opt CanisterLogFeature;
+  lastTimeNanos : opt nat64;
+  count : nat32;
+  firstTimeNanos : opt nat64;
+};
+type CanisterLogRequest = variant {
+  getMessagesInfo;
+  getMessages : GetLogMessagesParameters;
+  getLatestMessages : GetLatestLogMessagesParameters;
+};
+type CanisterLogResponse = variant {
+  messagesInfo : CanisterLogMessagesInfo;
+  messages : CanisterLogMessages;
+};
+type CanisterMetrics = record { data : CanisterMetricsData };
+type CanisterMetricsData = variant {
+  hourly : vec HourlyMetricsData;
+  daily : vec DailyMetricsData;
+};
+type CollectMetricsRequestType = variant { force; normal };
+type DailyMetricsData = record {
+  updateCalls : nat64;
+  canisterHeapMemorySize : NumericEntity;
+  canisterCycles : NumericEntity;
+  canisterMemorySize : NumericEntity;
+  timeMillis : int;
+};
+type GetInformationRequest = record {
+  status : opt StatusRequest;
+  metrics : opt MetricsRequest;
+  logs : opt CanisterLogRequest;
+  version : bool;
+};
+type GetInformationResponse = record {
+  status : opt StatusResponse;
+  metrics : opt MetricsResponse;
+  logs : opt CanisterLogResponse;
+  version : opt nat;
+};
+type GetLatestLogMessagesParameters = record {
+  upToTimeNanos : opt nat64;
+  count : nat32;
+  filter : opt GetLogMessagesFilter;
+};
+type GetLogMessagesFilter = record {
+  analyzeCount : nat32;
+  messageRegex : opt text;
+  messageContains : opt text;
+};
+type GetLogMessagesParameters = record {
+  count : nat32;
+  filter : opt GetLogMessagesFilter;
+  fromTimeNanos : opt nat64;
+};
+type GetMetricsParameters = record {
+  dateToMillis : nat;
+  granularity : MetricsGranularity;
+  dateFromMillis : nat;
+};
+type GetMiddlewareInstanceResult = record {
+  id : nat64;
+  middleware_instance_example : MiddlewareInstance;
+};
+type HourlyMetricsData = record {
+  updateCalls : vec nat64;
+  canisterHeapMemorySize : vec nat64;
+  canisterCycles : vec nat64;
+  canisterMemorySize : vec nat64;
+  timeMillis : int;
+};
+type LogMessageData = record { timeNanos : nat64; message : text };
+type MetricsGranularity = variant { hourly; daily };
+type MetricsRequest = record { parameters : GetMetricsParameters };
+type MetricsResponse = record { metrics : opt CanisterMetrics };
+type MiddlewareError = variant {
+  FailedToUpgrade : text;
+  MiddlewareInstanceError : text;
+  CommunicationWithMiddlewareInstanceFailed : text;
+  FailedToStop : text;
+  FailedToUpdateSettings : text;
+  UtilsError : UtilsError;
+  FailedToGetCanisterStatus : text;
+  MiddlewareNotFound : nat64;
+  FailedToInstallCode : text;
+  FailedToDelete : text;
+  FailedToCreate : text;
+  FailedToSendCycles : text;
+};
+type MiddlewareInstance = record {
+  id : nat64;
+  user : text;
+  canister_id : principal;
+};
+type NumericEntity = record {
+  avg : nat64;
+  max : nat64;
+  min : nat64;
+  first : nat64;
+  last : nat64;
+};
+type Pagination = record { page : nat64; size : nat64 };
+type PaginationResult = record {
+  page : nat64;
+  total_pages : nat64;
+  size : nat64;
+  total_items : nat64;
+  items : vec GetMiddlewareInstanceResult;
+};
+type Result = variant { Ok; Err : MiddlewareError };
+type Result_1 = variant { Ok; Err : text };
+type Result_2 = variant { Ok : vec nat8; Err : MiddlewareError };
+type StatusRequest = record {
+  memory_size : bool;
+  cycles : bool;
+  heap_memory_size : bool;
+};
+type StatusResponse = record {
+  memory_size : opt nat64;
+  cycles : opt nat64;
+  heap_memory_size : opt nat64;
+};
+type UpdateInformationRequest = record {
+  metrics : opt CollectMetricsRequestType;
+};
+type UtilsError = variant {
+  FromHexError : text;
+  NotAController;
+  TimerIsNotInitialized;
+  FailedToGetmiddlewareEvmAddress : text;
+  InvalidSIWEMessage : text;
+  UnableToGetAssetData : text;
+  InvalidAddressFormat : text;
+  UnableToGetRandom : text;
+};
+service : () -> {
+  add_middleware_instance : (vec nat8, text) -> (Result);
+  add_middleware_instances_manually : (vec MiddlewareInstance) -> (Result_1);
+  call_middleware_instance : (nat64, vec nat8) -> (Result_2);
+  getCanistergeekInformation : (GetInformationRequest) -> (
+      GetInformationResponse,
+    ) query;
+  get_metadata : () -> (record {}) query;
+  get_middleware_instances : (opt Pagination) -> (PaginationResult) query;
+  remove_middleware_instance : (nat64) -> (Result);
+  send_cycles_from_factory : (principal, nat) -> (Result_1);
+  updateCanistergeekInformation : (UpdateInformationRequest) -> ();
+  update_metadata : (record {}) -> (Result_1);
+}

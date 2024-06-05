@@ -1,0 +1,22 @@
+{
+  "canisters": {
+    "middleware": {
+      "candid": "src/middleware/middleware.did",
+      "package": "middleware",
+      "type": "rust"
+    },
+    "middleware_instance_example": {
+      "candid": "src/middleware_instance_example/middleware_instance_example.did",
+      "package": "middleware_instance_example",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
