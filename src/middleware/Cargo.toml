@@ -23,6 +23,6 @@ hex = "0.4.3"
 siwe = "0.6.1"
 time = "0.3.36"
 paginate = "1.1.11"
-num-bigint = "0.4.5"
+num-bigint = "0.4.4"
 ic-cdk-timers = "0.4.0"
 tokio = { version = "1.35.1", features = ["sync"] }
