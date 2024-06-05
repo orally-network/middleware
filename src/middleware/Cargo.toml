@@ -21,7 +21,7 @@ ic-web3-rs = { git = "https://github.com/orally-network/ic-web3-rs", version = "
 
 hex = "0.4.3"
 siwe = "0.6.1"
-time = "0.3.36"
+time = "0.3.32"
 paginate = "1.1.11"
 num-bigint = "0.4.4"
 ic-cdk-timers = "0.4.0"
