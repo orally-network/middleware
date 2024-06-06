@@ -1,11 +1,6 @@
 {
   "middleware": {
-    "local": "b77ix-eeaaa-aaaaa-qaada-cai",
-    "ic": "xmz4o-gqaaa-aaaag-qcjva-cai",
-    "staging": "xmz4o-gqaaa-aaaag-qcjva-cai"
-  },
-  "siwe_signer": {
-    "local": "br5f7-7uaaa-aaaaa-qaaca-cai",
-    "ic": "vk6h6-zyaaa-aaaak-qceta-cai"
+    "ic": "esegu-kiaaa-aaaag-qjz4q-cai",
+    "local": "b77ix-eeaaa-aaaaa-qaada-cai"
   }
 }

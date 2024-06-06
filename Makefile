@@ -21,7 +21,9 @@ local_upgrade_middleware: update_candid
 	dfx canister install --mode upgrade --wasm ./.dfx/local/canisters/middleware/middleware.wasm.gz middleware
 
 local_deploy_middleware: update_candid build_middleware_instance   
-	dfx canister create middleware && dfx build middleware && gzip -f -1 ./.dfx/local/canisters/middleware/middleware.wasm
+	dfx canister create middleware  
+	dfx build middleware 
+	gzip -f -1 ./.dfx/local/canisters/middleware/middleware.wasm
 	dfx canister install --wasm ./.dfx/local/canisters/middleware/middleware.wasm.gz --argument \
 		"()" middleware
 
@@ -41,8 +43,10 @@ ic_upgrade_middleware: update_candid
 
 
 ic_deploy_middleware: build_middleware_instance update_candid 
-	dfx canister create middleware --ic && dfx build middleware --ic && gzip -f -1 ./.dfx/local/canisters/middleware/middleware.wasm
-	dfx canister install --wasm ./.dfx/local/canisters/middleware/middleware.wasm.gz --argument \
+	dfx canister create middleware --ic 
+	dfx build middleware --ic 
+	gzip -f -1 ./.dfx/ic/canisters/middleware/middleware.wasm
+	dfx canister install --wasm ./.dfx/ic/canisters/middleware/middleware.wasm.gz --argument \
 		"()" middleware --ic
 
 ifndef PYTHIA_CANISTER
