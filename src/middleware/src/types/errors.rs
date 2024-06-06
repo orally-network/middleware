@@ -30,6 +30,8 @@ pub enum MiddlewareError {
     FailedToUpgrade(String),
     #[error("Middleware instance error: {0}")]
     MiddlewareInstanceError(String),
+    #[error("Not enough cycles, required: {0}, available: {1}")]
+    NotEnoughCycles(u128, u128),
 }
 
 #[derive(Error, Debug, CandidType, PartialEq, Deserialize)]

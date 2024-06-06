@@ -108,4 +108,4 @@ then
     network_arg+=( "--network" "$network")
 fi
 
-dfx canister "${network_arg[@]}" call "$canister" add_middleware_instance --argument-file <(echo "(blob \"$(hexdump -ve '1/1 "%.2x"' "$wasm" | sed 's/../\\&/g')\", \"${user}\")")
+dfx canister "${network_arg[@]}" call "$canister" add_middleware_instance --argument-file <(echo "(blob \"$(hexdump -ve '1/1 "%.2x"' "$wasm" | sed 's/../\\&/g')\", \"${user}\")") --with-cycles 500000000000 --wallet $(dfx identity get-wallet "${network_arg[@]}") 

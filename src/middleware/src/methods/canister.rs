@@ -135,6 +135,12 @@ async fn add_middleware_instance(wasm: Vec<u8>, user: String) -> MiddlewareResul
     validate_caller()?;
     let user = normalize(&user)?;
 
+    let available = ic_cdk::api::call::msg_cycles_available128();
+
+    if available < INIT_CYCLES_BALANCE {
+        return Err(MiddlewareError::NotEnoughCycles(available, INIT_CYCLES_BALANCE).into());
+    }
+
     log!(
         "Accepted {} cycles",
         ic_cdk::api::call::msg_cycles_accept128(INIT_CYCLES_BALANCE)

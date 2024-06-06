@@ -94,6 +94,7 @@ type MiddlewareError = variant {
   FailedToDelete : text;
   FailedToCreate : text;
   FailedToSendCycles : text;
+  NotEnoughCycles : record { nat; nat };
 };
 type MiddlewareInstance = record {
   id : nat64;
