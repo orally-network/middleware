@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-declare wasm=
-declare canister=
-declare network=
-declare user=
+declare wasm="./target/wasm32-unknown-unknown/release/middleware_instance_example.wasm.gz"
+declare canister="esegu-kiaaa-aaaag-qjz4q-cai"
+declare network="ic"
+declare user="0x654DFF41D51c230FA400205A633101C5C1f1969C"
 
 #########
 # USAGE #
